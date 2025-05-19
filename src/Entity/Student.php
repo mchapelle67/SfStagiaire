@@ -45,33 +45,39 @@ class Student
         $this->sessions = new ArrayCollection();
     }
 
+    
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    
     public function getName(): ?string
     {
         return $this->name;
     }
-
+    
     public function setName(string $name): static
     {
         $this->name = $name;
-
+        
         return $this;
     }
-
+    
     public function getSurname(): ?string
     {
         return $this->surname;
     }
-
+    
     public function setSurname(string $surname): static
     {
         $this->surname = $surname;
-
+        
         return $this;
+    }
+    
+    public function __toString()
+    {
+        return $this->name." ".$this->surname;
     }
 
     public function getDateBirth(): ?\DateTime
@@ -85,6 +91,14 @@ class Student
 
         return $this;
     }
+
+    public function getAge() 
+    {
+        // on calcule l'âge en faisant la difference entre la date d'aujourd'hui et la date de naissance 
+        $now = new \DateTime();
+        $age = $now->diff($this->dateBirth);
+        return $age->y;
+    } 
 
     public function getSexe(): ?string
     {

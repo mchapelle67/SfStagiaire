@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Student;
 use App\Repository\StudentRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class StudentController extends AbstractController
 {
@@ -19,13 +20,12 @@ final class StudentController extends AbstractController
         ]);
     }
     
-    #[Route('/student', name: 'show_student')]
-    public function showStudent(StudentRepository $studentRepository): Response
+    #[Route('/student/{id}', name: 'show_student')]
+    public function show(Student $student): Response
     {
-        $students = $studentRepository->findOneBy();
-        return $this->render('student/index.html.twig', [
-            'controller_name' => 'StudentController',
-            'students' => $students
+        return $this->render('student/show.html.twig', [
+        'controller_name' => 'StudentController',
+        'student' => $student   
         ]);
     }
     

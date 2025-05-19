@@ -51,6 +51,7 @@ class Module
 
         return $this;
     }
+    
 
     public function getCategory(): ?Category
     {

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail session: {{ session.name }}{% endblock %}
+
+{% block body %}
+<h1>{{ session.name }} </h1> 
+<h2>Session du {{ session.beggin|date('d/m/Y') }} au {{ session.end|date('d/m/Y') }}</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Module</th>
+            <th>Catégorie</th>
+            <th>Jours</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for module in session.programs.module %}
+        <tr>
+            <td>{{ module.name }}</td>
+            <td>{{ module.category }}</td>
+            <td>{{ module.days }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<button>
+    <a href="">MODIFIER</a>
+</button>
+
+<button>
+    <a href="">SUPPRIMER</a>
+</button>
+
+<button>
+    <a href="{{ path('app_session') }}">Retour à la liste</a>
+</button>
+{% endblock %}

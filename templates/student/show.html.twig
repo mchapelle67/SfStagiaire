@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail Stagiaire: {{ student }}{% endblock %}
+
+{% block body %}
+<h1>Fiche stagiaire</h1> 
+
+<p>{{ student }}</p>
+<p>{{ student.dateBirth|date("m/d/Y") }} ({{ student.age }} ans)</p>
+<p>{{ student.tel }}</p>
+<p>{{ student.email }}</p>
+
+{% for session in student.sessions %}
+    <a href="">{{ session.name }}</a><br>
+{% endfor %}
+
+<button>
+    <a href="">MODIFIER</a>
+</button>
+
+<button>
+    <a href="">SUPPRIMER</a>
+</button>
+
+<button>
+    <a href="{{ path('app_student') }}">Retour à la liste</a>
+</button>
+{% endblock %}

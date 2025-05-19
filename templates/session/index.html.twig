@@ -10,6 +10,7 @@
                 <th>Session</th>
                 <th>Date de début</th>
                 <th>Date de fin</th>
+                <th>Formateur</th>
                 <th>Places théoriques</th>
                 <th>Places réservées</th>
                 <th>Places restantes</th>
@@ -18,12 +19,13 @@
         <tbody>
             {% for session in sessions %}
             <tr>
-                <td>{{ session.name }}</td>
+                <td><a href="">{{ session.name }}</a></td>
                 <td>{{ session.beggin|date('d/m/Y') }}</td>
                 <td>{{ session.end|date('d/m/Y') }}</td>
+                <td>{{ session.trainer }}</td>
                 <td>{{ session.nbPlace }}</td>
                 <td>{{ session.students|length }}</td>
-                <td>{{ (session.nbPlaces - session.students|length)|length }}</td>
+                <td>{{ session.nbPlace - session.students|length }}</td>
             </tr>
             {% endfor %}
         </tbody>

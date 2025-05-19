@@ -61,6 +61,11 @@ class Trainer
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->name . ' ' . $this->surname;
+    }
+
     /**
      * @return Collection<int, Session>
      */
