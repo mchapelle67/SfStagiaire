@@ -16,14 +16,16 @@
         <header>
             <figure>
                 <img src="{{ asset('img/logo.png') }}" alt="Logo de l'application">
-                <figcaption>Logo de l'application</figcaption>
+            </figure>
             <nav>
-                <ul>
-                    <li><a href="{{ path('app_home') }}">Home</a></li>
-                    <li><a href="{{ path('app_about') }}">About</a></li>
-                    <li><a href="{{ path('app_contact') }}">Contact</a></li>
-                </ul>
+                <a href="">ACCUEIL</a>
+                <a href="{{ path('app_student') }}">STAGIAIRES</a>
+                <a href="{{ path('app_session') }}">SESSIONS</a>
             </nav>
-        {% block body %}{% endblock %}S
+        {% block body %}{% endblock %}
+            <footer>
+                <id="footer">
+                </id>
+            </footer>
     </body>
 </html>

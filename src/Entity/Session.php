@@ -46,11 +46,17 @@ class Session
     #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'session')]
     private Collection $programs;
 
+  
     public function __construct()
     {
         $this->students = new ArrayCollection();
         $this->programs = new ArrayCollection();
     }
+
+    // public function __toString()
+    // {
+    //     return $this->
+    // }
 
     public function getId(): ?int
     {

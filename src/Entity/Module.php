@@ -25,13 +25,15 @@ class Module
     /**
      * @var Collection<int, Program>
      */
-    #[ORM\ManyToMany(targetEntity: Program::class, mappedBy: 'module')]
+    #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'module')]
     private Collection $programs;
 
     public function __construct()
     {
         $this->programs = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -74,7 +76,7 @@ class Module
     {
         if (!$this->programs->contains($program)) {
             $this->programs->add($program);
-            $program->addModule($this);
+            $program->setModule($this);
         }
 
         return $this;
@@ -83,9 +85,13 @@ class Module
     public function removeProgram(Program $program): static
     {
         if ($this->programs->removeElement($program)) {
-            $program->removeModule($this);
+            // set the owning side to null (unless already changed)
+            if ($program->getModule() === $this) {
+                $program->setModule(null);
+            }
         }
 
         return $this;
     }
+
 }

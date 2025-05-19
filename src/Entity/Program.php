@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ProgramRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProgramRepository::class)]
@@ -21,16 +19,8 @@ class Program
     #[ORM\ManyToOne(inversedBy: 'programs')]
     private ?Session $session = null;
 
-    /**
-     * @var Collection<int, Module>
-     */
-    #[ORM\ManyToMany(targetEntity: Module::class, inversedBy: 'programs')]
-    private Collection $module;
-
-    public function __construct()
-    {
-        $this->module = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'programs')]
+    private ?Module $module = null;
 
     public function getId(): ?int
     {
@@ -61,26 +51,14 @@ class Program
         return $this;
     }
 
-    /**
-     * @return Collection<int, Module>
-     */
-    public function getModule(): Collection
+    public function getModule(): ?Module
     {
         return $this->module;
     }
 
-    public function addModule(Module $module): static
+    public function setModule(?Module $module): static
     {
-        if (!$this->module->contains($module)) {
-            $this->module->add($module);
-        }
-
-        return $this;
-    }
-
-    public function removeModule(Module $module): static
-    {
-        $this->module->removeElement($module);
+        $this->module = $module;
 
         return $this;
     }
