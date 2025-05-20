@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier info stagiaire: {{ student }}{% endblock %}
+
+{% block body %}
+
+        {{ form(formEditStudent) }}
+
+<button>
+    <a href="{{ path('app_student') }}">Retour à la liste</a>
+</button>
+{% endblock %}

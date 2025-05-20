@@ -11,15 +11,15 @@
 <p>{{ student.email }}</p>
 
 {% for session in student.sessions %}
-    <a href="">{{ session.name }}</a><br>
+    <a href="{{ path('show_session', {'id': session.id}) }}">{{ session.name }}</a><br>
 {% endfor %}
 
 <button>
-    <a href="">MODIFIER</a>
+    <a href="{{ path('edit_student', {'id': student.id}) }}">MODIFIER</a>
 </button>
 
 <button>
-    <a href="">SUPPRIMER</a>
+    <a href="{{ path('delete_student', {'id': student.id}) }}">SUPPRIMER</a>
 </button>
 
 <button>

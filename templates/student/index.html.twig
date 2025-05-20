@@ -3,8 +3,17 @@
 {% block title %}Listes des stagiaires inscrits{% endblock %}
 
 {% block body %}
-<h1>Listes des stagiaires inscrits</h1> 
-    {% for student in students %}
-        <a href="">{{ student.name ~ ' '  ~ student.surname }}</a> <br>
-    {% endfor %}
+<section class="student-list">
+    <h1>Listes des stagiaires inscrits</h1> 
+        {% for student in students %}
+            <a href="{{ path('show_student', {'id': student.id}) }}">{{ student.name ~ ' '  ~ student.surname }}</a> <br>
+        {% endfor %}
+    </section>
+
+<section class="student-add">
+    <h2>Inscrire un stagiaire</h2>
+        {{ form(formAddStudent) }}
+</section>
 {% endblock %}
+
+

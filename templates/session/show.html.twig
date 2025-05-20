@@ -15,11 +15,11 @@
         </tr>
     </thead>
     <tbody>
-        {% for module in session.programs %}
+        {% for program in session.programs %}
         <tr>
-            <td>{{ module.name }}</td>
-            <td>{{ module.category }}</td>
-            <td>{{ module.days }}</td>
+            <td>{{ program.module.name }}</td>
+            <td>{{ program.module.category }}</td>
+            <td>{{ program.nbDay }}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -34,7 +34,7 @@
         <h4>Formateur referent: {{ session.trainer }}</h4>
 
 {% for student in session.students %}
-    <a href="">{{ student }}</a> <a href="">DELETE</a><br>
+    <a href="{{ path('show_student', {'id': student.id}) }}">{{ student }}</a> <a href="">DELETE</a><br>
 {% endfor %}
 
 <form method="post" action="">
