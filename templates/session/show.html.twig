@@ -15,7 +15,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for module in session.programs.module %}
+        {% for module in session.programs %}
         <tr>
             <td>{{ module.name }}</td>
             <td>{{ module.category }}</td>
@@ -24,7 +24,27 @@
         {% endfor %}
     </tbody>
 </table>
+<button>
+    <a href="">Ajouter un module</a>
+</button>
 
+<h2>Stagiaires inscrits</h2>
+    <h3>Nombre d'inscrit: {{ session.students|length }}</h3>
+    <h3>Nombre de places restantes: {{ session.nbPlace - session.students|length }}</h4>
+        <h4>Formateur referent: {{ session.trainer }}</h4>
+
+{% for student in session.students %}
+    <a href="">{{ student }}</a> <a href="">DELETE</a><br>
+{% endfor %}
+
+<form method="post" action="">
+    <select name="student">
+        {% for student in students %}
+            <option value="{{ student.id }}">{{ student }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Inscrire">
+</form>
 
 <button>
     <a href="">MODIFIER</a>
