@@ -3,39 +3,46 @@
 {% block title %}Détail session: {{ session.name }}{% endblock %}
 
 {% block body %}
-<h1>{{ session.name }} </h1> 
-<h2>Session du {{ session.beggin|date('d/m/Y') }} au {{ session.end|date('d/m/Y') }}</h2>
 
-<table>
-    <thead>
-        <tr>
-            <th>Module</th>
-            <th>Catégorie</th>
-            <th>Jours</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for program in session.programs %}
-        <tr>
-            <td>{{ program.module.name }}</td>
-            <td>{{ program.module.category }}</td>
-            <td>{{ program.nbDay }}</td>
-        </tr>
+<section="session">
+    <div class="container session-detail">
+        <h1>{{ session.name }} </h1> 
+        <h2>Session du {{ session.beggin|date('d/m/Y') }} au {{ session.end|date('d/m/Y') }}</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Module</th>
+                    <th>Catégorie</th>
+                    <th>Jours</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for program in session.programs %}
+                <tr>
+                    <td>{{ program.module.name }}</td>
+                    <td>{{ program.module.category }}</td>
+                    <td>{{ program.nbDay }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button>
+            <a href="">Ajouter un module</a>
+        </button>
+    </div>
+
+    <div class="students-in-session">
+        <h2>Stagiaires inscrits</h2>
+            <h3>Nombre d'inscrit: {{ session.students|length }}</h3>
+            <h3>Nombre de places restantes: {{ session.nbPlace - session.students|length }}</h3>
+                <h4>Formateur referent: {{ session.trainer }}</h4>
+
+        {% for student in session.students %}
+            <a href="{{ path('show_student', {'id': student.id}) }}">{{ student }}</a> 
+            <a href="{{ path('remove_student_session', {'studentId': student.id, 'sessionId': session.id}) }}"><img src"{{ asset('img/delete.png') }}" alt="Icone de suppression"></a>
+            <br>
         {% endfor %}
-    </tbody>
-</table>
-<button>
-    <a href="">Ajouter un module</a>
-</button>
-
-<h2>Stagiaires inscrits</h2>
-    <h3>Nombre d'inscrit: {{ session.students|length }}</h3>
-    <h3>Nombre de places restantes: {{ session.nbPlace - session.students|length }}</h4>
-        <h4>Formateur referent: {{ session.trainer }}</h4>
-
-{% for student in session.students %}
-    <a href="{{ path('show_student', {'id': student.id}) }}">{{ student }}</a> <a href="">DELETE</a><br>
-{% endfor %}
+    </div>
 
 <form method="post" action="">
     <select name="student">
@@ -54,7 +61,5 @@
     <a href="">SUPPRIMER</a>
 </button>
 
-<button>
-    <a href="{{ path('app_session') }}">Retour à la liste</a>
-</button>
+</section>
 {% endblock %}

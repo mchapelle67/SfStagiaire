@@ -9,6 +9,7 @@
 
 :root {
     --primary-color: #006D77;
+    --secondary-color: #83C5BE;
     --border: 1px solid #006D77;
     --box-shadow: 10px 4px 100px 30px #006D77;
     --border-radius: 42px;
@@ -35,6 +36,7 @@ header {
     background-color: var(--primary-color);
     padding: 20px;
     display: flex;
+    flex-direction: row;
     align-items: center;
     img {
         margin-right: 50px;
@@ -65,7 +67,7 @@ footer {
     width: 100%;
 }
 
-/* LISTE STUDENT *************************************************************** */
+/* LISTE STAGIAIRE *************************************************************** */
 .student-list {
     display: flex;
     flex-direction: column;
@@ -98,5 +100,130 @@ footer {
     }
 }
 
+/* FICHE STAGIAIRE ********************************************************************************* */
+.container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 80%;
+    height: auto;
+    padding: 50px;
+    margin: 200px auto;
+    border: var(--border);  
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+        h1 {
+        margin-bottom: 30px;
+        text-align: center;
+        color: var(--primary-color);   
+        font-size: 50px;
+    }
+    button {  
+        background-color: var(--primary-color);
+        border: none;
+        padding: 10px 20px;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        font-size: 20px;
+        margin: 20px auto 0 auto;
+        width: fit-content;
+        &:hover {
+            background-color: #83C5BE;
+            color: white;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+    }
+    }
 
 
+.student {
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.infos-student {
+    margin-right: 50px;
+    figure {
+        display: flex;
+        img {
+            margin-right: 10px;                
+            margin-bottom: 10px;        
+    
+        }
+    }
+}
+
+.sessions-student {
+        figure {
+        display: flex;
+        figcaption {
+            margin-left: 10px;
+            font-size: 30px;
+            font-weight: 300;
+            font-style: italic;
+        }
+        img {
+            margin-right: 10px;      
+        }
+    }
+    a {
+        text-decoration: none;
+        color: var(--primary-color);
+        font-size: 20px;
+        &:hover {
+            color: #83C5BE;
+        }
+    }
+}
+
+/* UPDATE STUDENT ********************************************************************* */
+
+/* SESSION DETAIL ********************************************************************* */
+.session-detail {
+    h1 {
+        margin-bottom: 10px;
+    }
+    h2 {
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 25px;
+        font-weight: 300;
+        font-style: italic;
+    }
+    table {
+        margin: 50px auto;
+        border-collapse: collapse;
+        width: 80%;
+        th, td {
+            border: var(--border);
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    }
+}
+
+.students-in-session{    
+    text-align: center;
+    h3 {
+        font-size: 25px;
+        font-weight: 300;
+        font-style: italic;
+    }
+    h4 {
+        margin-bottom: 20px;
+        font-size: 25px;
+        font-weight: 600;
+    }
+    
+}

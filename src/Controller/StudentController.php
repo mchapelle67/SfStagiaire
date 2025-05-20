@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Student;
 use App\Form\StudentTypeForm;
+use Doctrine\ORM\EntityManager;
 use App\Repository\StudentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class StudentController extends AbstractController
@@ -48,10 +50,24 @@ final class StudentController extends AbstractController
     #[Route('/student/{id}', name: 'show_student')]
     public function show(Student $student): Response
     {
+
         return $this->render('student/show.html.twig', [
-        'controller_name' => 'StudentController',
-        'student' => $student   
+            'controller_name' => 'StudentController',
+            'student' => $student   
         ]);
+    }
+
+    #[Route('/student/{studentId}/session/{sessionId}/remove', name: 'remove_student_session')]
+    public function removeFromSession(int $studentId, int $sessionId, EntityManagerInterface $entityManager): Response 
+    {
+
+        $student = $entityManager->getRepository(Student::class)->find($studentId);
+        $session = $entityManager->getRepository(\App\Entity\Session::class)->find($sessionId);
+
+        $session->removeStudent($student);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_student');
     }
 
     #[Route('/student/{id}/delete', name: 'delete_student')]
@@ -64,7 +80,6 @@ final class StudentController extends AbstractController
         // puis on redirige vers la liste des étudiants
         return $this->redirectToRoute('app_student');
     }
-
 
     #[Route('/student/{id}/edit', name: 'edit_student')]
     public function update(EntityManagerInterface $entityManager, Student $student, Request $request): Response

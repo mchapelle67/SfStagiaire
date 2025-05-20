@@ -72,7 +72,7 @@ class StudentTypeForm extends AbstractType
             ->add('Valider', SubmitType::class, [
                 'label' => 'Valider',
                 'attr' => [
-                    'class' => 'btn btn-secondary button-submit',
+                    'class' => 'button-submit',
                 ]
             ])
         ;

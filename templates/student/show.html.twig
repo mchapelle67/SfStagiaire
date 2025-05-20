@@ -3,24 +3,54 @@
 {% block title %}Détail Stagiaire: {{ student }}{% endblock %}
 
 {% block body %}
-<h1>Fiche stagiaire</h1> 
+<section class="container">
+    <h1>Fiche stagiaire</h1> 
+    <div class="student">
+        <div class="infos-student">
+                <figure>
+                    <img src="{{ asset('img/people.png') }}" alt="Icone d'une personne">
+                    <figcaption>{{ student }}</figcaption>
+                </figure>
+                <figure>
+                    <img src="{{ asset('img/birth.png') }}" alt="Icone d'un gateau d'anniversaire">
+                    <figcaption>{{ student.dateBirth|date("m/d/Y") }} ({{ student.age }} ans)</figcaption>
+                </figure>
+                <figure>
+                    <img src="{{ asset('img/sexe.png') }}" alt="Icone homme/femme">
+                    <figcaption>{{ student.sexe }} </figcaption>
+                </figure>
+                <figure>
+                    <img src="{{ asset('img/tel.png') }}" alt="Icone d'un téléphone">
+                    <figcaption>{{ student.tel }} </figcaption>
+                </figure>
+                <figure>
+                    <img src="{{ asset('img/email.png') }}" alt="Icone d'un arobase">
+                    <figcaption>{{ student.email }} </figcaption>
+                </figure>
+        </div>
+        
+        <div class="sessions-student">
+            <figure>
+                <img src="{{ asset('img/session.png') }}" alt="Icone d'une personne diplômée">
+                    <figcaption>Sessions inscrits</figcaption>
+            </figure>
+        {% for session in student.sessions %}
+            <a href="{{ path('show_session', {'id': session.id}) }}">{{ session.name }}</a>
+            <a href="{{ path('remove_student_session', {'studentId': student.id, 'sessionId': session.id}) }}">
+                <img src="{{ asset('img/delete.png')}}" alt="Icone de poubelle">
+            </a>
+            <br>
+        {% endfor %}
+        </div>
+    </div>
+            <button>
+                <a href="{{ path('edit_student', {'id': student.id}) }}">MODIFIER</a>
+            </button>
 
-<p>{{ student }}</p>
-<p>{{ student.dateBirth|date("m/d/Y") }} ({{ student.age }} ans)</p>
-<p>{{ student.tel }}</p>
-<p>{{ student.email }}</p>
-
-{% for session in student.sessions %}
-    <a href="{{ path('show_session', {'id': session.id}) }}">{{ session.name }}</a><br>
-{% endfor %}
-
-<button>
-    <a href="{{ path('edit_student', {'id': student.id}) }}">MODIFIER</a>
-</button>
-
-<button>
-    <a href="{{ path('delete_student', {'id': student.id}) }}">SUPPRIMER</a>
-</button>
+            <button>
+                <a href="{{ path('delete_student', {'id': student.id}) }}">SUPPRIMER</a>
+            </button>
+</section>
 
 <button>
     <a href="{{ path('app_student') }}">Retour à la liste</a>

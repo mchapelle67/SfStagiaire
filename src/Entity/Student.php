@@ -102,6 +102,11 @@ class Student
 
     public function getSexe(): ?string
     {
+        if ($this->sexe === 'M') {
+            return 'Homme';
+        } elseif ($this->sexe === 'F') {
+            return 'Femme';
+        }
         return $this->sexe;
     }
 
@@ -114,6 +119,10 @@ class Student
 
     public function getTel(): ?string
     {
+
+    if($this->tel === null) {
+            return "non renseigné";
+        }
         return $this->tel;
     }
 
@@ -126,6 +135,9 @@ class Student
 
     public function getEmail(): ?string
     {
+        if($this->email === null) {
+            return "non renseigné";
+        }
         return $this->email;
     }
 
