@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Student;
-use App\Form\StudentTypeForm;
+use App\Form\StudentFormType;
 use Doctrine\ORM\EntityManager;
 use App\Repository\StudentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,7 +23,7 @@ final class StudentController extends AbstractController
 
         // création formulaire d'ajout
         $student = new Student();
-        $form = $this->createForm(StudentTypeForm::class, $student);
+        $form = $this->createForm(StudentFormType::class, $student);
 
         // gestion de la requête
         $form->handleRequest($request);
@@ -69,13 +69,13 @@ final class StudentController extends AbstractController
     }
 
     #[Route('/student/{id}/edit', name: 'edit_student')]
-    public function update(EntityManagerInterface $entityManager, Student $student, Request $request): Response
+    public function editStudent(EntityManagerInterface $entityManager, Student $student, Request $request): Response
     {
         // on récupère l'étudiant à modifier
         $id = $student->getId();
         $student = $entityManager->getRepository(Student::class)->find($id);
 
-        $form = $this->createForm(StudentTypeForm::class, $student);
+        $form = $this->createForm(StudentFormType::class, $student);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -89,7 +89,7 @@ final class StudentController extends AbstractController
             return $this->redirectToRoute('app_student');
         }
 
-        return $this->render('student/update.html.twig', [
+        return $this->render('student/edit.html.twig', [
             'controller_name' => 'StudentController',
             'student' => $student,
             'formEditStudent' => $form

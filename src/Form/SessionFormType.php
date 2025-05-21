@@ -8,14 +8,15 @@ use App\Entity\Session;
 use App\Entity\Student;
 use App\Entity\Trainer;
 use App\Entity\Formation;
-use Doctrine\DBAL\Types\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class SessionFormType extends AbstractType
 {
@@ -48,18 +49,20 @@ class SessionFormType extends AbstractType
                     'placeholder' => 'Date de fin',
                 ],
             ])
-            ->add('students', EntityType::class, [
-                'class' => Student::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
+
             ->add('trainer', EntityType::class, [
                 'class' => Trainer::class,
-                'choice_label' => 'id',
+                'choice_label' => function (Trainer $trainer) {
+                    return $trainer->getName() . ' ' . $trainer->getSurname();
+                },
             ])
             ->add('formation', EntityType::class, [
                 'class' => Formation::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Valider',
+             
             ])
         ;
     }

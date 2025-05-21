@@ -35,7 +35,6 @@
                     <th>Module</th>
                     <th>Catégorie</th>
                     <th>Jour</th>
-                    <th>Ajouter</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,14 +43,9 @@
                     <td>{{ nonModule.name }}</td>
                     <td>{{ nonModule.category }}</td>
                     <td>
-                        <form method="post" action="{{ path('add_module_session', {'sessionId': session.id, 'moduleId': nonModule.id }) }}">
-                        <input type="number" name=" nbDay" min="1" max="5" value="1">
-                    </td>
-                    <td>
-                        <input type="submit" value="Ajouter">
-
-                    </td>
-                        </a>
+                    <form method="post" action="{{ path('add_module_session', {'sessionId': session.id, 'moduleId': nonModule.id }) }}">
+                        <input type="number" name="nbDay" min="1" max="5" value="1" style="width:60px;">
+                        <input type="submit" value="+">
                     </td>
                     </form>
                 </tr>
@@ -83,12 +77,16 @@
     
 
 <button>
-    <a href="">MODIFIER</a>
+    <a href="{{ path('edit_session', {'id': session.id}) }}">MODIFIER</a>
 </button>
-
 <button>
     <a href="{{ path('delete_session', {'id': session.id}) }}">SUPPRIMER</a>
 </button>
+<button>
+    <a href="{{ path('app_session') }}">Retour à la liste</a>
+</button>
+
+
 
 </section>
 {% endblock %}
