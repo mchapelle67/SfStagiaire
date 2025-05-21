@@ -57,19 +57,6 @@ final class StudentController extends AbstractController
         ]);
     }
 
-    #[Route('/student/{studentId}/session/{sessionId}/remove', name: 'remove_student_session')]
-    public function removeFromSession(int $studentId, int $sessionId, EntityManagerInterface $entityManager): Response 
-    {
-
-        $student = $entityManager->getRepository(Student::class)->find($studentId);
-        $session = $entityManager->getRepository(\App\Entity\Session::class)->find($sessionId);
-
-        $session->removeStudent($student);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_student');
-    }
-
     #[Route('/student/{id}/delete', name: 'delete_student')]
     public function delete(Student $student, EntityManagerInterface $entityManager): Response
     {

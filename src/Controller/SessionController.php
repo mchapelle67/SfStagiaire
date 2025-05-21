@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Module;
+use App\Entity\Program;
 use App\Entity\Session;
 use App\Entity\Student;
 use App\Form\ProgramTypeForm;
@@ -30,17 +31,21 @@ final class SessionController extends AbstractController
     }
 
     #[Route('/session/{id}', name: 'show_session')]
-    public function show(Session $session, StudentRepository $studentRepository): Response
+    public function show(Session $session, SessionRepository $sessionRepository): Response
     {
-        $students = $studentRepository->findAll();
+    
+        $nonInscrits = $sessionRepository->findStudentNoRegister($session->getId());
+        $nonModules = $sessionRepository->findModuleNotInSession($session->getId());
+
         return $this->render('session/show.html.twig', [
-        'controller_name' => 'SessionController',
-        'session' => $session,
-        'students' => $students
+            'controller_name' => 'SessionController',
+            'session' => $session,
+            'nonInscrits' => $nonInscrits,
+            'nonModules' => $nonModules
         ]);
     }
 
-     #[Route('/session/{id}/delete', name: 'delete_session')]
+    #[Route('/session/{id}/delete', name: 'delete_session')]
     public function delete(Session $session, EntityManagerInterface $entityManager): Response
     {
         // on supprime la session
@@ -64,6 +69,7 @@ final class SessionController extends AbstractController
 
         return $this->redirectToRoute('show_session', ['id' => $sessionId]);
     }
+    
     
 
     #[Route('/session/add', name: 'new_session')]
@@ -92,5 +98,67 @@ final class SessionController extends AbstractController
             'controller_name' => 'session/addController',
             'formAddsession' => $form
         ]);
+    }
+
+
+    #[Route('/student/{studentId}/session/{sessionId}/remove', name: 'remove_student_session')]
+    public function removeStudentFromSession(int $studentId, int $sessionId, EntityManagerInterface $entityManager): Response 
+    {
+
+        $student = $entityManager->getRepository(Student::class)->find($studentId);
+        $session = $entityManager->getRepository(\App\Entity\Session::class)->find($sessionId);
+
+        $session->removeStudent($student);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show_session', ['id' => $sessionId]);
+    }
+
+    #[Route('/module/{moduleId}/session/{sessionId}/remove', name: 'remove_student_session')]
+    public function removeModuleFromSession(int $moduleId, int $sessionId, EntityManagerInterface $entityManager): Response 
+    {
+
+        $module = $entityManager->getRepository(Module::class)->find($moduleId);
+        $session = $entityManager->getRepository(\App\Entity\Session::class)->find($sessionId);
+
+        $session->removeModule($module);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show_session', ['id' => $sessionId]);
+    }
+
+
+    #[Route('/student/{studentId}/session/{sessionId}/add', name: 'add_student_session')]
+    public function addStudentInSession(int $studentId, int $sessionId, EntityManagerInterface $entityManager): Response 
+    {
+
+        $student = $entityManager->getRepository(Student::class)->find($studentId);
+        $session = $entityManager->getRepository(\App\Entity\Session::class)->find($sessionId);
+
+        $session->addStudent($student);
+        $student->addSession($session);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show_session', ['id' => $sessionId]);
+    }
+
+
+    #[Route('/module/{moduleId}/session/{sessionId}/add', name: 'add_module_session')]
+    public function addModuleInSession(int $moduleId, int $sessionId, EntityManagerInterface $entityManager, Request $request): Response 
+    {
+        $module = $entityManager->getRepository(Module::class)->find($moduleId);
+        $session = $entityManager->getRepository(Session::class)->find($sessionId);
+        $nbDay = $request->request->get('nbDay');
+
+        // Créer un nouveau Program qui relie le module à la session
+        $program = new Program();
+        $program->setModule($module);
+        $program->setSession($session);
+        $program->setNbDay($nbDay);
+
+        $entityManager->persist($program);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show_session', ['id' => $sessionId]);
     }
 }

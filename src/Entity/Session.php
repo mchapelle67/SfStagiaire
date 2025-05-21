@@ -157,9 +157,12 @@ class Session
         return $this;
     }
 
+
     /**
      * @return Collection<int, Program>
-     */
+     */    
+
+
     public function getPrograms(): Collection
     {
         return $this->programs;

@@ -14,6 +14,7 @@
                     <th>Module</th>
                     <th>Catégorie</th>
                     <th>Jours</th>
+                    <th>Supprimer</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,13 +23,40 @@
                     <td>{{ program.module.name }}</td>
                     <td>{{ program.module.category }}</td>
                     <td>{{ program.nbDay }}</td>
+                    <td><a href=""><img src="{{ asset('img/delete.png') }}" alt="Logo de suppression"></a></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <button>
-            <a href="">Ajouter un module</a>
-        </button>
+        <table>
+            <h3>Modules non inscrits à la session</h3>
+            <thead>
+            <tr>
+                <th>Module</th>
+                <th>Catégorie</th>
+                <th>Jours</th>
+                <th>Ajouter</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for nonModule in nonModules %}
+            <tr>
+                <td>{{ nonModule.name }}</td>
+                <td>{{ nonModule.category }}</td>
+                <td>
+                <form action="{{ path('add_module_session', {'sessionId': session.id, 'moduleId': nonModule.id }) }}" method="post" style="display:inline;">
+                    <input type="number" name="nbDay" min="1" value="1" required style="width:60px;">
+                </td>
+                <td>
+                    <button type="submit" style="background:none;border:none;padding:0;">
+                    Ajouter
+                    </button>
+                </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 
     <div class="students-in-session">
@@ -43,17 +71,15 @@
             <br>
         {% endfor %}
     </div>
-{# 
-    <div class="register-to-session">
-        <form method="post" action="{{ path('add_student_session', {'sessionId': session.id}) }}">
-            <select name="studentId">
-                {% for student in students %}
-                    <option value="{{ student.id }}">{{ student }}</option>
-                {% endfor %}
-            </select>
-            <input type="submit" value="Inscrire">
-        </form>
-    </div> #}
+    <div class="students-notIn-session">
+        {% for student in nonInscrits %}
+            <a href="{{ path('show_student', {'id': student.id}) }}">{{ student }}</a> 
+            <a href="{{ path('add_student_session', {'studentId': student.id, 'sessionId': session.id}) }}"><img src="{{ asset('img/add.png') }}" alt="Icone d'ajout"></a>
+            <br>
+        {% endfor %}
+    </div>
+
+    
 
 <button>
     <a href="">MODIFIER</a>
