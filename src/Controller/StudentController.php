@@ -86,7 +86,9 @@ final class StudentController extends AbstractController
             $entityManager->flush();
             
             // puis on redirige vers la liste des étudiants
-            return $this->redirectToRoute('app_student');
+            return $this->redirectToRoute('show_student', [
+                'id' => $student->getId()
+            ]);
         }
 
         return $this->render('student/edit.html.twig', [

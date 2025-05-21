@@ -27,8 +27,32 @@ h2 {
     font-weight: 600;
 }
 
+input {
+    margin: 15px;
+    border-radius: 5px;
+    border: 1px solid rgb(0, 109, 119, 0.3);
+}
+
+
+
 .button-submit {
-    text-align: center;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 20px;
+    margin: 20px auto 0 auto;
+    width: fit-content;
+    &:hover {
+        background-color: #83C5BE;
+        color: white;
+    }
+    a {
+        text-decoration: none;
+        color: white;
+    }
 }
    
 /* HOME *****************************************************/
@@ -59,13 +83,6 @@ header {
     }
 }
 
-/* footer {
-    background-color: var(--primary-color);
-    padding: 20px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-} */
 
 /* LISTE STAGIAIRE *************************************************************** */
 .student-list {
@@ -99,6 +116,7 @@ header {
         text-align: center;
     }
 }
+
 
 /* FICHE STAGIAIRE ********************************************************************************* */
 .container {
@@ -180,7 +198,53 @@ header {
     }
 }
 
-/* UPDATE STUDENT ********************************************************************* */
+/* LISTE SESSION ********************************************************************* */
+
+.list-sessions {
+    margin: 50px;
+    h1 {
+        margin-bottom: 50px;
+        text-align: center;
+        color: var(--primary-color);
+    }
+}
+
+.table {
+  width: 100%;
+  border: 1px solid #dee2e6;
+}
+
+.table th,
+.table td {
+    border-collapse: collapse;
+    border: 1px solid #1d1e1f;
+    padding: 0.75rem;
+    text-align: left;
+        a {
+        text-decoration: none;
+        color: var(--primary-color);
+        font-size: 20px;
+        &:hover {
+            color: #83C5BE;
+        }
+        }
+}
+
+.table thead {
+    background-color: #f8f9fa;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f2f2f2;
+}
+
+.table-striped tbody tr:hover {
+    background-color: #aed1f4;
+}
+
+.row {
+
+}
 
 /* SESSION DETAIL ********************************************************************* */
 .session-detail {
@@ -224,6 +288,12 @@ header {
         margin-bottom: 20px;
         font-size: 25px;
         font-weight: 600;
+    }
+    h5 {
+        margin: 20px auto 10px auto;
+        font-size: 25px;
+        font-weight: 300;
+        font-style: italic;
     }
     a {
         text-decoration: none;
@@ -270,4 +340,12 @@ header {
             }
         }
     }
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+
 }

@@ -44,9 +44,7 @@ class StudentFormType extends AbstractType
                 ]
             ])
             ->add('sexe', ChoiceType::class, [
-                'attr' => [
-                    'class' => 'form-check-inline',
-                ],
+                'label' => 'Sexe',
                 'choices' => [
                     'Homme' => 'Homme',
                     'Femme' => 'Femme',

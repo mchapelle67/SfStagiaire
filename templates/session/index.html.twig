@@ -3,33 +3,36 @@
 {% block title %}Listes Session{% endblock %}
 
 {% block body %}
+<section="list-sessions">
+<table class="table table-striped">
 <h1>Listes Sessions</h1> 
     <table>
         <thead>
             <tr>
-                <th>Session</th>
-                <th>Date de début</th>
-                <th>Date de fin</th>
-                <th>Formateur</th>
-                <th>Places théoriques</th>
-                <th>Places réservées</th>
-                <th>Places restantes</th>
+                <th scope="col">Session</th>
+                <th scope="col">Date de début</th>
+                <th scope="col">Date de fin</th>
+                <th scope="col">Formateur</th>
+                <th scope="col">Places théoriques</th>
+                <th scope="col">Places réservées</th>
+                <th scope="col">Places restantes</th>
             </tr>
         </thead>
         <tbody>
             {% for session in sessions %}
             <tr>
-                <td><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.name }}</a></td>
-                <td>{{ session.beggin|date('d/m/Y') }}</td>
-                <td>{{ session.end|date('d/m/Y') }}</td>
-                <td>{{ session.trainer }}</td>
-                <td>{{ session.nbPlace }}</td>
-                <td>{{ session.students|length }}</td>
-                <td>{{ session.nbPlace - session.students|length }}</td>
+                <td scope="row"><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.name }}</a></td>
+                <td scope="row">{{ session.beggin|date('d/m/Y') }}</td>
+                <td scope="row">{{ session.end|date('d/m/Y') }}</td>
+                <td scope="row">{{ session.trainer }}</td>
+                <td scope="row">{{ session.nbPlace }}</td>
+                <td scope="row">{{ session.students|length }}</td>
+                <td scope="row">{{ session.nbPlace - session.students|length }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <button class="button-submit"><a href="{{ path('new_session') }}">Créer nouvelle session</button></a>
+</section>
 
-    <a href="{{ path('new_session') }}"><button>Créer nouvelle session</button></a>
 {% endblock %}

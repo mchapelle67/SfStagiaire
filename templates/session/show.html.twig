@@ -66,7 +66,8 @@
             <br>
         {% endfor %}
     </div>
-    <div class="students-notIn-session">
+    <div class="students-in-session">
+    <h5>Stagiaires non inscrits</h5>
         {% for student in nonInscrits %}
             <a href="{{ path('show_student', {'id': student.id}) }}">{{ student }}</a> 
             <a href="{{ path('add_student_session', {'studentId': student.id, 'sessionId': session.id}) }}"><img src="{{ asset('img/add.png') }}" alt="Icone d'ajout"></a>
@@ -75,16 +76,17 @@
     </div>
 
     
-
-<button>
+<div class="buttons">
+<button class="button-submit">
     <a href="{{ path('edit_session', {'id': session.id}) }}">MODIFIER</a>
 </button>
-<button>
+<button class= "button-submit">
     <a href="{{ path('delete_session', {'id': session.id}) }}">SUPPRIMER</a>
 </button>
-<button>
+<button class="button-submit">
     <a href="{{ path('app_session') }}">Retour à la liste</a>
 </button>
+</div>
 
 
 
