@@ -114,14 +114,16 @@ final class SessionController extends AbstractController
         return $this->redirectToRoute('show_session', ['id' => $sessionId]);
     }
 
-    #[Route('/module/{moduleId}/session/{sessionId}/remove', name: 'remove_student_session')]
+    #[Route('/module/{moduleId}/session/{sessionId}/remove', name: 'remove_module_session')]
     public function removeModuleFromSession(int $moduleId, int $sessionId, EntityManagerInterface $entityManager): Response 
     {
+        $program = $entityManager->getRepository(Program::class)->findOneBy(['module' => $moduleId, 'session' => $sessionId]);
 
         $module = $entityManager->getRepository(Module::class)->find($moduleId);
         $session = $entityManager->getRepository(\App\Entity\Session::class)->find($sessionId);
 
-        $session->removeModule($module);
+        $module->removeProgram($program);
+        $session->removeProgram($program);
         $entityManager->flush();
 
         return $this->redirectToRoute('show_session', ['id' => $sessionId]);

@@ -23,7 +23,7 @@
                     <td>{{ program.module.name }}</td>
                     <td>{{ program.module.category }}</td>
                     <td>{{ program.nbDay }}</td>
-                    <td><a href=""><img src="{{ asset('img/delete.png') }}" alt="Logo de suppression"></a></td>
+                    <td><a href="{{ path('remove_module_session', {'sessionId': session.id, 'moduleId': program.module.id }) }}"><img src="{{ asset('img/delete.png') }}" alt="Logo de suppression"></a></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -31,30 +31,31 @@
         <table>
             <h3>Modules non inscrits à la session</h3>
             <thead>
-            <tr>
-                <th>Module</th>
-                <th>Catégorie</th>
-                <th>Jours</th>
-                <th>Ajouter</th>
-            </tr>
+                <tr>
+                    <th>Module</th>
+                    <th>Catégorie</th>
+                    <th>Jour</th>
+                    <th>Ajouter</th>
+                </tr>
             </thead>
             <tbody>
-            {% for nonModule in nonModules %}
-            <tr>
-                <td>{{ nonModule.name }}</td>
-                <td>{{ nonModule.category }}</td>
-                <td>
-                <form action="{{ path('add_module_session', {'sessionId': session.id, 'moduleId': nonModule.id }) }}" method="post" style="display:inline;">
-                    <input type="number" name="nbDay" min="1" value="1" required style="width:60px;">
-                </td>
-                <td>
-                    <button type="submit" style="background:none;border:none;padding:0;">
-                    Ajouter
-                    </button>
-                </form>
-                </td>
-            </tr>
-            {% endfor %}
+                {% for nonModule in nonModules %}
+                <tr>
+                    <td>{{ nonModule.name }}</td>
+                    <td>{{ nonModule.category }}</td>
+                    <td>
+                        <form method="post" action="{{ path('add_module_session', {'sessionId': session.id, 'moduleId': nonModule.id }) }}">
+                        <input type="number" name=" nbDay" min="1" max="5" value="1">
+                    </td>
+                    <td>
+                        <input type="submit" value="Ajouter">
+
+                    </td>
+                        </a>
+                    </td>
+                    </form>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
