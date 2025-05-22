@@ -21,9 +21,12 @@
                 <img src="{{ asset('img/logo.png') }}" alt="Logo de l'application">
             </figure>
             <nav>
-                <a href="">ACCUEIL</a>
-                <a href="{{ path('app_student') }}">STAGIAIRES</a>
-                <a href="{{ path('app_session') }}">SESSIONS</a>
+                <a href="{{ path('app_login') }}">ACCUEIL</a>
+                {% if app.user %}
+                                <a href="{{ path('app_student') }}">STAGIAIRES</a>
+                                <a href="{{ path('app_session') }}">SESSIONS</a>
+                                <a href="{{ path('app_logout') }}">DECONNEXION</a>
+                {% endif %}
             </nav>
         </header>
         {% block body %}{% endblock %}
